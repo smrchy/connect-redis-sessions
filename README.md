@@ -17,7 +17,7 @@ var app = express();
 app
 	.use( express.query() )
 	.use( express.cookieParser() )
-	.use( ConnectRedisSessions( express, { app: "myappname" } ) )
+	.use( ConnectRedisSessions( { app: "myappname" }, express ) )
 
 // listen for requests
 app.use( function( req, res ){
@@ -46,11 +46,11 @@ app.use( function( req, res ){
 3. init the express cookie parser	
 `app.use( express.cookieParser() );`
 4. use express redis sessions as middleware	
-`app.use( ConnectRedisSessions( express, { app: "myappname" } ) );`
+`app.use( ConnectRedisSessions( { app: "myappname" }, express ) );`
 
 ## Initialisation
 
-**`ConnectRedisSessions( express, options )`**
+**`ConnectRedisSessions( options, express )`**
 
 To init the session handling just add the two arguments `express` *( wich is the raw object out of `require( "express" )` )* and an options object.
 
@@ -208,7 +208,7 @@ _timeSecDay = 60 * 60 * 24
 app
 	.use( express.query() )
 	.use( express.cookieParser() )
-	.use( ConnectRedisSessions( express, { app: "myappname", ttl: _timeSecDay, cookie: { maxAge: _timeSecDay * 1000 } } ) )
+	.use( ConnectRedisSessions( { app: "myappname", ttl: _timeSecDay, cookie: { maxAge: _timeSecDay * 1000 } }, express ) )
 
 // listen for requests
 app.use( function( req, res ){
